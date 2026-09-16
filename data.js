@@ -1,7 +1,7 @@
 (async () => {
   try {
     const COOKIE_NAME = "timedata";
-    const THREE_MINUTES = 3 * 60 * 1000;
+    const TEN_MINUTES = 10 * 60 * 1000;
 
     const cookies = document.cookie.split("; ").reduce((acc, c) => {
       const [k, v] = c.split("=");
@@ -12,7 +12,7 @@
     const lastSent = parseInt(cookies[COOKIE_NAME] || "0", 10);
     const now = Date.now();
 
-    if (now - lastSent < THREE_MINUTES) return;
+    if (now - lastSent < TEN_MINUTES) return;
 
     const ipRes = await fetch("https://api.ipify.org/");
     const ip = await ipRes.text();
