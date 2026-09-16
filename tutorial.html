@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RbxEconomy - How to download</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #eee;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #0a0a1a;
+        }
+
+        canvas#particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-orbs {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.12;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        .orb-1 { width: 400px; height: 400px; background: #e94560; top: -8%; right: 10%; animation-delay: 0s; }
+        .orb-2 { width: 350px; height: 350px; background: #0f3460; bottom: 10%; left: -5%; animation-delay: -5s; }
+        .orb-3 { width: 250px; height: 250px; background: #533483; top: 40%; left: 60%; animation-delay: -9s; }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 30px) scale(1.1); }
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            padding: 16px 40px;
+            background: rgba(10, 10, 26, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+        }
+
+        nav .brand {
+            font-size: 22px;
+            font-weight: 700;
+            color: #e94560;
+            letter-spacing: 1px;
+            text-shadow: 0 0 20px rgba(233, 69, 96, 0.4);
+        }
+
+        nav a {
+            color: #777;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.25s, text-shadow 0.25s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: #e94560;
+            transition: width 0.25s;
+        }
+
+        nav a:hover, nav a.active { color: #fff; text-shadow: 0 0 10px rgba(233, 69, 96, 0.3); }
+        nav a:hover::after, nav a.active::after { width: 100%; }
+
+        .tutorial-page {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 50px 24px 80px;
+        }
+
+        .tutorial-page h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff, #e94560);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        .tutorial-page .subtitle {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 40px;
+            animation: fadeUp 0.6s ease-out 0.1s both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 14px;
+            padding: 20px;
+            backdrop-filter: blur(6px);
+            transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            animation: fadeUp 0.5s ease-out both;
+        }
+
+        .step:nth-child(1) { animation-delay: 0.05s; }
+        .step:nth-child(2) { animation-delay: 0.1s; }
+        .step:nth-child(3) { animation-delay: 0.15s; }
+        .step:nth-child(4) { animation-delay: 0.2s; }
+        .step:nth-child(5) { animation-delay: 0.25s; }
+        .step:nth-child(6) { animation-delay: 0.3s; }
+        .step:nth-child(7) { animation-delay: 0.35s; }
+        .step:nth-child(8) { animation-delay: 0.4s; }
+
+        .step:hover {
+            border-color: rgba(233, 69, 96, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 28px rgba(233, 69, 96, 0.08);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #e94560, #c73652);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 0 12px rgba(233, 69, 96, 0.3);
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ccc;
+        }
+
+        .step img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            object-position: top;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 12px;
+            display: block;
+            cursor: zoom-in;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .step img:hover {
+            border-color: rgba(233, 69, 96, 0.4);
+            box-shadow: 0 0 20px rgba(233, 69, 96, 0.15);
+        }
+
+        .step .step-text {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #e94560;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover { opacity: 0.7; }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 24px;
+            font-size: 12px;
+            color: #333;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        @media (max-width: 640px) {
+            .steps-grid { grid-template-columns: 1fr; }
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            cursor: zoom-out;
+            animation: lbFadeIn 0.25s ease-out;
+        }
+
+        .lightbox.active { display: flex; }
+
+        @keyframes lbFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 12px;
+            border: 1px solid rgba(233, 69, 96, 0.3);
+            box-shadow: 0 0 60px rgba(233, 69, 96, 0.15);
+            animation: lbZoomIn 0.3s ease-out;
+        }
+
+        @keyframes lbZoomIn {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 24px; right: 32px;
+            font-size: 32px;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+        }
+
+        .lightbox-close:hover { color: #e94560; }
+
+        .lightbox-hint {
+            font-size: 13px;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particles"></canvas>
+
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <nav>
+        <div class="brand">RbxEconomy</div>
+        <a href="index.html">Main</a>
+        <a href="tutorial.html" class="active">How to download?</a>
+    </nav>
+
+    <div class="tutorial-page">
+        <h1>How to Download</h1>
+        <p class="subtitle">Follow these steps to install the extension.</p>
+
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-num">1</div>
+                    <div class="step-title">Step 1</div>
+                </div>
+                <img src="Tutorial/1.png" alt="Step 1">
+                <div class="step-text">test</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-num">2</div>
+                    <div class="step-title">Step 2</div>
+                </div>
+                <img src="Tutorial/2.png" alt="Step 2">
+                <div class="step-text">test</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-num">3</div>
+                    <div class="step-title">Step 3</div>
+                </div>
+                <img src="Tutorial/3.png" alt="Step 3">
+                <div class="step-text">test</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-num">4</div>
+                    <div class="step-title">Step 4</div>
+                </div>
+                <img src="Tutorial/4.png" alt="Step 4">
+                <div class="step-text">test</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-num">5</div>
+                    <div class="step-title">Step 5</div>
+                </div>
+                <img src="Tutorial/5.png" alt="Step 5">
+                <div class="step-text">test</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-num">6</div>
+                    <div class="step-title">Step 6</div>
+                </div>
+                <img src="Tutorial/6.png" alt="Step 6">
+                <div class="step-text">test</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-num">7</div>
+                    <div class="step-title">Step 7</div>
+                </div>
+                <img src="Tutorial/7.png" alt="Step 7">
+                <div class="step-text">test</div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-num">8</div>
+                    <div class="step-title">Step 8</div>
+                </div>
+                <img src="Tutorial/8.png" alt="Step 8">
+                <div class="step-text">test</div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-link">&larr; Back to main page</a>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close">&times;</button>
+        <img id="lightbox-img" src="" alt="Zoomed">
+        <div class="lightbox-hint">Click anywhere to close</div>
+    </div>
+
+    <footer>RbxEconomy &mdash; 2026</footer>
+
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let W, H, particles = [];
+
+        function resize() {
+            W = canvas.width = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * W;
+                this.y = Math.random() * H;
+                this.r = Math.random() * 1.5 + 0.5;
+                this.dx = (Math.random() - 0.5) * 0.3;
+                this.dy = (Math.random() - 0.5) * 0.3;
+                this.alpha = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.dx;
+                this.y += this.dy;
+                if (this.x < 0 || this.x > W) this.dx *= -1;
+                if (this.y < 0 || this.y > H) this.dy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(233, 69, 96, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+        function connectParticles() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(233, 69, 96, ${0.06 * (1 - dist / 120)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, W, H);
+            particles.forEach(p => { p.update(); p.draw(); });
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        document.querySelectorAll('.step img').forEach(img => {
+            img.addEventListener('click', e => {
+                e.stopPropagation();
+                lightboxImg.src = img.src;
+                lightbox.classList.add('active');
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') lightbox.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
