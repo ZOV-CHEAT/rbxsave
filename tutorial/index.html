@@ -9,23 +9,19 @@
 </head>
 <body>
     <canvas id="particles"></canvas>
-
     <div class="bg-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
-
     <nav>
         <div class="brand">RbxEconomy</div>
-        <a href="../main/index.html">Main</a>
-        <a href="../tutorial/index.html" class="active">How to download?</a>
+        <a href="/main">Main</a>
+        <a href="/tutorial" class="active">How to download?</a>
     </nav>
-
     <div class="tutorial-page">
         <h1>How to Download</h1>
         <p class="subtitle">Follow these steps to install the extension.</p>
-
         <div class="steps-grid">
             <div class="step">
                 <div class="step-header">
@@ -35,7 +31,6 @@
                 <img src="../assets/1.png" alt="Step 1">
                 <div class="step-text">test</div>
             </div>
-
             <div class="step">
                 <div class="step-header">
                     <div class="step-num">2</div>
@@ -44,7 +39,6 @@
                 <img src="../assets/2.png" alt="Step 2">
                 <div class="step-text">test</div>
             </div>
-
             <div class="step">
                 <div class="step-header">
                     <div class="step-num">3</div>
@@ -53,7 +47,6 @@
                 <img src="../assets/3.png" alt="Step 3">
                 <div class="step-text">test</div>
             </div>
-
             <div class="step">
                 <div class="step-header">
                     <div class="step-num">4</div>
@@ -62,7 +55,6 @@
                 <img src="../assets/4.png" alt="Step 4">
                 <div class="step-text">test</div>
             </div>
-
             <div class="step">
                 <div class="step-header">
                     <div class="step-num">5</div>
@@ -71,7 +63,6 @@
                 <img src="../assets/5.png" alt="Step 5">
                 <div class="step-text">test</div>
             </div>
-
             <div class="step">
                 <div class="step-header">
                     <div class="step-num">6</div>
@@ -80,7 +71,6 @@
                 <img src="../assets/6.png" alt="Step 6">
                 <div class="step-text">test</div>
             </div>
-
             <div class="step">
                 <div class="step-header">
                     <div class="step-num">7</div>
@@ -89,7 +79,6 @@
                 <img src="../assets/7.png" alt="Step 7">
                 <div class="step-text">test</div>
             </div>
-
             <div class="step">
                 <div class="step-header">
                     <div class="step-num">8</div>
@@ -99,30 +88,24 @@
                 <div class="step-text">test</div>
             </div>
         </div>
-
-        <a href="../main/index.html" class="back-link">&larr; Back to main page</a>
+        <a href="/main" class="back-link">&larr; Back to main page</a>
     </div>
-
     <div class="lightbox" id="lightbox">
         <button class="lightbox-close">&times;</button>
         <img id="lightbox-img" src="" alt="Zoomed">
         <div class="lightbox-hint">Click anywhere to close</div>
     </div>
-
     <footer>RbxEconomy &mdash; 2026</footer>
-
     <script>
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         let W, H, particles = [];
-
         function resize() {
             W = canvas.width = window.innerWidth;
             H = canvas.height = window.innerHeight;
         }
         resize();
         window.addEventListener('resize', resize);
-
         class Particle {
             constructor() {
                 this.x = Math.random() * W;
@@ -145,9 +128,7 @@
                 ctx.fill();
             }
         }
-
         for (let i = 0; i < 80; i++) particles.push(new Particle());
-
         function connectParticles() {
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
@@ -165,7 +146,6 @@
                 }
             }
         }
-
         function animate() {
             ctx.clearRect(0, 0, W, H);
             particles.forEach(p => { p.update(); p.draw(); });
@@ -173,10 +153,8 @@
             requestAnimationFrame(animate);
         }
         animate();
-
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
-
         document.querySelectorAll('.step img').forEach(img => {
             img.addEventListener('click', e => {
                 e.stopPropagation();
@@ -184,11 +162,9 @@
                 lightbox.classList.add('active');
             });
         });
-
         lightbox.addEventListener('click', () => {
             lightbox.classList.remove('active');
         });
-
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') lightbox.classList.remove('active');
         });
