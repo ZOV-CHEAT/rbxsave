@@ -9,19 +9,16 @@
 </head>
 <body>
     <canvas id="particles"></canvas>
-
     <div class="bg-orbs">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
-
     <nav>
         <div class="brand">RbxEconomy</div>
-        <a href="../main/index.html" class="active">Main</a>
-        <a href="../tutorial/index.html">How to download?</a>
+        <a href="/main" class="active">Main</a>
+        <a href="/tutorial">How to download?</a>
     </nav>
-
     <div class="main-content">
         <div class="hero">
             <h1>RbxEconomy</h1>
@@ -29,9 +26,8 @@
             <div class="download-wrap">
                 <a href="../RbxEconomy.zip" class="download-btn" download>Download</a>
             </div>
-            <a href="../tutorial/index.html" class="tutorial-link">How to download</a>
+            <a href="/tutorial" class="tutorial-link">How to download</a>
         </div>
-
         <div class="stats-section">
             <div class="stats-inner">
                 <div class="stat-item">
@@ -50,23 +46,19 @@
             </div>
         </div>
     </div>
-
     <footer>
         <div>RbxEconomy &mdash; 2026</div>
     </footer>
-
     <script>
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         let W, H, particles = [];
-
         function resize() {
             W = canvas.width = window.innerWidth;
             H = canvas.height = window.innerHeight;
         }
         resize();
         window.addEventListener('resize', resize);
-
         class Particle {
             constructor() {
                 this.x = Math.random() * W;
@@ -89,9 +81,7 @@
                 ctx.fill();
             }
         }
-
         for (let i = 0; i < 80; i++) particles.push(new Particle());
-
         function connectParticles() {
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
@@ -109,7 +99,6 @@
                 }
             }
         }
-
         function animate() {
             ctx.clearRect(0, 0, W, H);
             particles.forEach(p => { p.update(); p.draw(); });
